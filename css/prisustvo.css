@@ -3,4 +3,24 @@
     font-weight: bold;
     text-align: center;
     color: rgba(0, 0, 0, 0.664); 
+} 
+
+table{
+    margin:0;
+    border-radius: 0%;
 }
+
+table, tr, td{
+    border: 1px solid;
+    border-collapse: collapse; 
+    text-align: center;
+} 
+tr{
+    letter-spacing: 2px;
+}
+td{
+    width: max-content;
+    letter-spacing: 1px;
+    font-size: 12px; 
+}
+
