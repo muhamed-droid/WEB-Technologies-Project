@@ -5,15 +5,43 @@
     color: rgba(0, 0, 0, 0.664); 
 } 
 
-table{
+.tabela{
     margin:0;
     border-radius: 0%;
+    table-layout: auto;
+    width: 1000px;
+    height: 360px;
+    font-size: 16px; 
+}
+
+.mala-tabela{
+    height: 200px;
+    width: 200px;
+}
+
+.zelena{
+    background-color: green;
+}
+
+.zadnja-kolona{
+    width: 35%;
+}
+
+.prva-kolona{
+    max-width: 120px;
+}
+
+.prvi-red{
+    font-size: 24px;
+    font-weight: bold;
 }
 
 table, tr, td{
     border: 1px solid;
     border-collapse: collapse; 
     text-align: center;
+    vertical-align: top;
+    padding-top: 15px;
 } 
 tr{
     letter-spacing: 2px;
@@ -21,6 +49,5 @@ tr{
 td{
     width: max-content;
     letter-spacing: 1px;
-    font-size: 12px; 
 }
 
