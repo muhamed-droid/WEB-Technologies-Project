@@ -27,10 +27,12 @@
 .mala-tabela{
     height: 100%;
     width: 100%;
-    border-top: 0cm;
+    margin: -1px;
 }
 
-
+.mala-tabela td{
+    width:20%;
+}
 
 .red-male-tabele{
     height: 50%;
