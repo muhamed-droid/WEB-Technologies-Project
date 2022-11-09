@@ -24,12 +24,12 @@
 .tekuca{
     padding:0px;
     width:170px;
+    margin: -1px;
 }
 
 .mala-tabela{
     height: 100%;
     width: 100%;
-    margin: -1px;
 }
 
 .mala-tabela td{
