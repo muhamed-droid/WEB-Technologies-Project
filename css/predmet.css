@@ -38,7 +38,7 @@ div{
 .predmeti{
     margin-left: 50px; 
     max-width: 1080px; 
-    margin-top: 100px;
+    margin-top:100px;
 } 
 
 .predmeti div{
@@ -75,4 +75,34 @@ div{
 
 .izborni-predmet{
     background-color: #b0e0e6;
+}
+
+@media all and (max-width: 676px){
+    .predmeti{ 
+        margin-top:150px;
+    } 
+
+    .predmeti div{
+        scroll-margin-block-start: 150px;
+    }
+}
+
+@media all and (max-width: 896px){
+    .predmeti{ 
+        margin-top:125px;
+    } 
+
+    .predmeti div{
+        scroll-margin-block-start: 125px;
+    }
+}
+
+@media all and (max-width: 456px){
+    .predmeti{ 
+        margin-top:240px;
+    } 
+
+    .predmeti div{
+        scroll-margin-block-start: 240px;
+    }
 }
