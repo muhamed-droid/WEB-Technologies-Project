@@ -17,7 +17,6 @@ div{
     flex-wrap: wrap;
     justify-content: space-between;
     position: fixed;
-    /*margin-left: 30px;*/
     margin-right: 50px;
     top: 0;
     left: 0;
@@ -99,10 +98,10 @@ div{
 
 @media all and (max-width: 456px){
     .predmeti{ 
-        margin-top:240px;
+        margin-top:180px;
     } 
 
     .predmeti div{
-        scroll-margin-block-start: 240px;
+        scroll-margin-block-start: 180px;
     }
 }
