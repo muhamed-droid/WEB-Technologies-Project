@@ -1,3 +1,19 @@
-export function TabelaPrisustvo(parametar1, parametar2){
-    
-}
+let TabelaPrisustvo = function (divRef, podaci) {
+    //privatni atributi modula
+    //
+
+    //implementacija metoda
+    let sljedecaSedmica = function () {
+
+    }
+
+    let prethodnaSedmica = function () {
+
+    }
+
+
+    return {
+        sljedecaSedmica: sljedecaSedmica,
+        prethodnaSedmica: prethodnaSedmica
+    }
+};
