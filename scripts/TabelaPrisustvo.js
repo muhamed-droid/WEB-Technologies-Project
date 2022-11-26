@@ -1,7 +1,7 @@
 let TabelaPrisustvo = function (divRef, podaci) {
 
     divRef.innerHTML= "";
-    
+    if(podaci.length()==0) return;
 
     let tabela =  document.createElement("table");
     tabela.class = "tabela";
@@ -12,13 +12,18 @@ let TabelaPrisustvo = function (divRef, podaci) {
     prvaKolona.innerHTML = "Ime i prezime";
     //odnosno ostale kolone
     let tekst;
-    let trenutna = 1;
+    //trenutna sedmica je posljednja sa prisustvom
+    let trenutna=0;
+    for(let i = 0; i<podaci.prisustva.length(); i++){
+        if(podaci.prisustva.sedmica>max) trenutna=podaci.prisustva.sedmica;
+    }
     let spajaj = false;
     tabela.append(prviRed);
     tabela.append(prvaKolona);
     for(let i = 0; i<16; i++){
         let temp = document.createElement("td");
-        temp.class= "tekst";
+        if(spajaj==false)temp.class= "tekst";
+        else temp.class="span";
         if(spajaj==false){
             if(i==0)temp.innerHTML="Indeks";
             else if(i==1) temp.innerHTML="I";
@@ -53,10 +58,30 @@ let TabelaPrisustvo = function (divRef, podaci) {
             else if(i==15) temp.innerHTML="XV";
         }
         if(i==trenutna) spajaj = true;
-        tabela.appendChile(temp);
+        tabela.appendChild(temp);
     }
 
-    
+    let studenti = podaci[0];
+    let prisustva = podaci[1];
+    let predmet = podaci[2];
+    let brojPredavanjaSedmicno = podaci[3];
+    let brojVjezbiSedmicno = podaci[4];
+
+    for(let i = 0; i<studenti.length(); i++){
+        let temp = document.createElement("tr");
+        let temp1 = document.createElement("td");
+        temp1.innerHTML = studenti[i].ime;
+        let temp2 = document.createElement("td");
+        temp2.innerHTML = studenti[i].indeks;
+        let temp3;
+        for(let i=0; i<15; i++){
+            let pomocni = document.createElement("td");
+            //sada bi trebalo ubacivati zavisi jel popunjeno ili nije
+            
+        }
+    }
+
+
     divRef.appendChild(tabela);
     
     
