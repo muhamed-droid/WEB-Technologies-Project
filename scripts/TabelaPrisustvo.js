@@ -3,6 +3,71 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     divRef.innerHTML="";
     if(podaci.length==0) return;
 
+    //validacija podataka
+
+    //Broj prisustva na predavanju/vježbi je veći od broja predavanja/vježbi sedmično
+    //Broj prisustva je manji od nule
+    for(let i=0; i<podaci.prisustva.length; i++){
+        if(podaci.prisustva[i].predavanja>podaci.brojPredavanjaSedmicno
+          || podaci.prisustva[i].vjezbe>podaci.brojVjezbiSedmicno
+          || podaci.prisustva[i].predavanja<0 
+          || podaci.prisustva[i].vjezbe<0){
+            divRef.innerHTML="Podaci o prisustvu nisu validni!";
+            return;
+          } 
+    }
+
+    //Isti student ima dva ili više unosa prisustva za istu sedmicu
+    let listaIndeksa = new Set();
+    for(let i = 0; i<podaci.prisustva.length; i++){
+        if(listaIndeksa.has(podaci.prisustva[i].index)) {
+            divRef.innerHTML="Podaci o prisustvu nisu validni!";
+            return;
+        }
+        listaIndeksa.add(podaci.prisustva[i].index);
+    }
+
+    //Postoje dva ili više studenata sa istim indeksom u listi studenata
+    listaIndeksa = new Set();
+    for(let i=0; i<podaci.studenti.length; i++){
+        if(listaIndeksa.has(podaci.studenti[i].index)){
+            divRef.innerHTML="Podaci o prisustvu nisu validni!";
+            return;
+        }
+        listaIndeksa.add(podaci.studenti[i].index);
+    }
+
+
+    //Postoji prisustvo za studenta koji nije u listi studenata
+    for(let i=0; i<podaci.prisustva.length; i++){
+        if(!listaIndeksa.has(podaci.prisustva[i].index)){
+            divRef.innerHTML="Podaci o prisustvu nisu validni!";
+            return;
+        }
+    }
+
+    //Postoji sedmica, između dvije sedmice za koje je uneseno prisustvo bar jednom studentu,
+    //u kojoj nema unesenog prisustva. Npr. uneseno je prisustvo za sedmice 1 i 3 ali nijedan
+    //student nema prisustvo za sedmicu 2
+
+    let sedmice = new Set();
+    for(let i=0; i<podaci.prisustva.length; i++){
+        if(!sedmice.has(podaci.prisustva[i].sedmica)){
+            sedmice.add(podaci.prisustva[i].sedmica);
+        }
+    }
+    sedmice = Array.from(new Set(sedmice)).sort();
+    //console.log("Sedmice" + sedmice);
+    for(let i = 0; i<sedmice.length; i++){
+        if(sedmice[i+1]-sedmice[i]>1) {
+            divRef.innerHTML="Podaci o prisustvu nisu validni!";
+            return;
+        }
+    }
+
+
+
+
 
     let tabela =  document.createElement("table");
     tabela.className = "tabela";
@@ -121,47 +186,50 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         prviRed.appendChild(temp);
     }
     tabela.append(prviRed);
-    //mapa u kojoj se čuvaju studenti, imena i broj indeksa
-    let studenti = new Map();
 
     for(let i = 0; i< podaci.studenti.length; i++){
-        //console.log(podaci.studenti[i].ime);
-        //console.log(podaci.studenti[i].index);
+        console.log(podaci.studenti[i].ime);
+        console.log(podaci.studenti[i].index);
         //studenti.set(podaci.studenti[i].ime, podaci.studenti[i].index);
-        
-
-        for(let j = 0; j<podaci.prisustva.length; j++){
-            //console.log(podaci.prisustva[j].sedmica);
-            //console.log(podaci.prisustva[j].predavanja);
-            //console.log(podaci.prisustva[j].vjezbe);
-            //console.log(podaci.prisustva[j].index);
+        let Red = document.createElement("tr");
+        spajaj=false;
+        for(let j = 0; j<17; j++){
+            let kolona = document.createElement("td");
+            if(spajaj==false) kolona.className= "tekst";
+            else if(j!=16) kolona.className="span";
+            if(spajaj==false){
+                if(j==0) kolona.innerHTML= podaci.studenti[i].ime;
+                else if(j==1) kolona.innerHTML=podaci.studenti[i].index;
+               
+            } else{
+                if(j>=2 && j!=trenutna){
+                    let procenat = 0;
+                    for(let k = 0; k <podaci.prisustva.length; k++){
+                        if(podaci.prisustva[k].sedmica==j-2 && podaci.studenti[i].index==podaci.prisustva[k].index){
+                            let temp = 100*((podaci.prisustva[i].predavanja+podaci.prisustva[i].vjezbe)
+                            /(podaci.brojPredavanjaSedmicno+podaci.brojVjezbiSedmicno).toFixed(2));
+                            procenat=parseFloat(temp);
+                            break;
+                        }
+                    }
+                    kolona.innerHTML= procenat + "%";
+                    Red.appendChild(kolona);
+                    break;
+                } 
+            }
+            if(j==trenutna+1) {
+                //treba iscrtavat ona crvena i zelena polja
+                spajaj = true;
+            }
+            Red.appendChild(kolona);
         }
+
+        tabela.appendChild(Red);
+
+        
     }
 
-    
-    //console.log(studenti);
-
-    //let keys = Object.keys(podaci.studenti);
-    //console.log(keys);
-    
-
-   
-
-
-    
-
     divRef.appendChild(tabela);
-    
-    
-
-    //privatni atributi modula
-    //mapaStudenti = new Map();
-    //prisustvo = new Set();
-    //pojedinacnoPrisustvo = new Set();
-    //predmet = new String();
-
-
-    
 
     //implementacija metoda
     let sljedecaSedmica = function () {
