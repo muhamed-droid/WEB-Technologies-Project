@@ -195,14 +195,67 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         spajaj=false;
         for(let j = 0; j<17; j++){
             let kolona = document.createElement("td");
-            if(spajaj==false) kolona.className= "tekst";
+            if(spajaj==false && j!=trenutna+1) kolona.className= "tekst";
+            else if(j==trenutna+1) kolona.className="tekuca";
             else if(j!=16) kolona.className="span";
             if(spajaj==false){
                 if(j==0) kolona.innerHTML= podaci.studenti[i].ime;
                 else if(j==1) kolona.innerHTML=podaci.studenti[i].index;
-               
+                if(j>=2 && j==trenutna+1){
+                    let malaTabela = document.createElement("table");
+                    malaTabela.className="mala-tabela";
+                    malaTabela.id="t2";
+                    let redMaleTabele1 = document.createElement("tr");
+                    redMaleTabele1.className = "red-male-tabele";
+                    for(let k=0; k<podaci.brojPredavanjaSedmicno; k++){
+                        let k = document.createElement("td");
+                        //Ovdje mi broj kad dodam ne može trebalo bi k+1
+                        k.innerHTML = "P<br>";
+                        redMaleTabele1.append(k);
+                    }
+                    for(let k =0; k<podaci.brojVjezbiSedmicno; k++){
+                        let k = document.createElement("td");
+                        k.innerHTML = "V<br>";
+                        redMaleTabele1.append(k);
+                    }
+
+
+                    let redMaleTabele2 = document.createElement("tr");
+                    redMaleTabele2.className = "red-male-tabele";
+                 
+                    for(let k=0; k<podaci.prisustva.length; k++){
+                        if(podaci.prisustva[k].index==podaci.studenti[i].index &&
+                            podaci.prisustva[k].sedmica==j-1) {
+                                 //trebamo obojit tabelu nekako - treba posmatrat prisustva
+                                for(let t=0; t<podaci.prisustva.predavanja; t++){
+                                    let k = document.createElement("td");
+                                    k.className="zelena";
+                                    redMaleTabele2.append(k);
+                                }
+                                for(let t=podaci.prisustva.predavanja; t<podaci.brojPredavanjaSedmicno; t++){
+                                    let k = document.createElement("td");
+                                    k.className="crvena";
+                                    redMaleTabele2.append(k);
+                                }
+                                for(let t=0; t<podaci.prisustva.vjezbe; t++){
+                                    let k = document.createElement("td");
+                                    k.className="zelena";
+                                    redMaleTabele2.append(k);
+                                }
+                                for(let t=podaci.prisustva.vjezbe; t<podaci.brojVjezbiSedmicno; t++){
+                                    let k = document.createElement("td");
+                                    k.className="crvena";
+                                    redMaleTabele2.append(k);
+                                }
+                             }
+                    }
+
+                    malaTabela.append(redMaleTabele1);
+                    malaTabela.append(redMaleTabele2);
+                    kolona.append(malaTabela);
+                }    
             } else{
-                if(j>=2 && j!=trenutna){
+                /*if(j>=2 && j!=trenutna+1){
                     let procenat = 0;
                     for(let k = 0; k <podaci.prisustva.length; k++){
                         if(podaci.prisustva[k].sedmica==j-2 && podaci.studenti[i].index==podaci.prisustva[k].index){
@@ -215,7 +268,7 @@ export let TabelaPrisustvo = function (divRef, podaci) {
                     kolona.innerHTML= procenat + "%";
                     Red.appendChild(kolona);
                     break;
-                } 
+                } */
             }
             if(j==trenutna+1) {
                 //treba iscrtavat ona crvena i zelena polja
