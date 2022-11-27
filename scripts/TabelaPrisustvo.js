@@ -289,7 +289,7 @@ export let TabelaPrisustvo = function (divRef, podaci) {
 
     divRef.appendChild(tabela);
 
-
+    
 
     //implementacija metoda
     let sljedecaSedmica = function () {
@@ -301,7 +301,18 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         if(trenutna>1)
         trenutna--; 
     }
-    //šta je fazon sa ovim jel ovo ne može ili 
+
+    let dugmadi = document.getElementById("button");
+    let b1 = document.createElement("button");
+    let opa = document.createElement("i");
+    opa.className = "fa-solid fa-arrow-left";
+    b1.append(opa);
+    b1.onclick = sljedecaSedmica();
+    dugmadi.append(b1);
+    let b2 = document.createElement("Button");
+    b2.className = "fa-solid fa-arrow-right";
+    b2.onclick = sljedecaSedmica();
+    dugmadi.append(b2);
 
     return {
         sljedecaSedmica: sljedecaSedmica,
