@@ -1,7 +1,8 @@
-let TabelaPrisustvo = function (divRef, podaci) {
+export let TabelaPrisustvo = function (divRef, podaci) {
+    
+    divRef.innerHTML="";
+    if(podaci.length==0) return;
 
-    divRef.innerHTML= "";
-    if(podaci.length()==0) return;
 
     let tabela =  document.createElement("table");
     tabela.class = "tabela";
@@ -14,8 +15,54 @@ let TabelaPrisustvo = function (divRef, podaci) {
     let tekst;
     //trenutna sedmica je posljednja sa prisustvom
     let trenutna=0;
-    for(let i = 0; i<podaci.prisustva.length(); i++){
-        if(podaci.prisustva.sedmica>max) trenutna=podaci.prisustva.sedmica;
+    for(let i = 0; i<podaci.prisustva.length; i++){
+        if(podaci.prisustva.sedmica>trenutna) trenutna=podaci.prisustva.sedmica;
+    }
+
+    //mapa u kojoj se čuvaju studenti, imena i broj indeksa
+    let studenti = new Map();
+
+    for(let i = 0; i< podaci.studenti.length; i++){
+        //console.log(podaci.studenti[i].ime);
+        //console.log(podaci.studenti[i].index);
+        //studenti.set(podaci.studenti[i].ime, podaci.studenti[i].index);
+
+        for(let j = 0; j<podaci.prisustva.length; j++){
+            console.log(podaci.prisustva[j].sedmica);
+            console.log(podaci.prisustva[j].predavanja);
+            console.log(podaci.prisustva[j].vjezbe);
+            console.log(podaci.prisustva[j].index);
+        }
+    }
+
+    
+    //console.log(studenti);
+
+    //let keys = Object.keys(podaci.studenti);
+    //console.log(keys);
+    
+
+   
+
+
+    /*divRef.innerHTML="";
+
+    divRef.innerHTML= "";
+    if(podaci.length==0) return;
+
+    let tabela =  document.createElement("table");
+    tabela.class = "tabela";
+    let prviRed = document.createElement("tr");
+    prviRed.class = "prvi-red";
+    let prvaKolona = document.createElement("td");
+    prvaKolona.class = "prva-kolona";
+    prvaKolona.innerHTML = "Ime i prezime";
+    //odnosno ostale kolone
+    let tekst;
+    //trenutna sedmica je posljednja sa prisustvom
+    let trenutna=0;
+    for(let i = 0; i<podaci.prisustva.length; i++){
+        if(podaci.prisustva.sedmica>trenutna) trenutna=podaci.prisustva.sedmica;
     }
     let spajaj = false;
     tabela.append(prviRed);
@@ -60,29 +107,30 @@ let TabelaPrisustvo = function (divRef, podaci) {
         if(i==trenutna) spajaj = true;
         tabela.appendChild(temp);
     }
-
-    let studenti = podaci[0];
+    let studenti = new Map();
+    studenti = podaci[0];
     let prisustva = podaci[1];
     let predmet = podaci[2];
     let brojPredavanjaSedmicno = podaci[3];
     let brojVjezbiSedmicno = podaci[4];
 
-    for(let i = 0; i<studenti.length(); i++){
+    
+
+    for(let i = 0; i<studenti.size; i++){
         let temp = document.createElement("tr");
         let temp1 = document.createElement("td");
         temp1.innerHTML = studenti[i].ime;
         let temp2 = document.createElement("td");
         temp2.innerHTML = studenti[i].indeks;
         let temp3;
-        for(let i=0; i<15; i++){
-            let pomocni = document.createElement("td");
+        for(let j=0; j<prisustva.length(); j++){
             //sada bi trebalo ubacivati zavisi jel popunjeno ili nije
             
         }
     }
 
 
-    divRef.appendChild(tabela);
+    divRef.appendChild(tabela); */
     
     
 
@@ -92,9 +140,6 @@ let TabelaPrisustvo = function (divRef, podaci) {
     //pojedinacnoPrisustvo = new Set();
     //predmet = new String();
 
-        for(let object in podaci){
-            
-        }
 
     
 
@@ -113,5 +158,5 @@ let TabelaPrisustvo = function (divRef, podaci) {
     return {
         sljedecaSedmica: sljedecaSedmica,
         prethodnaSedmica: prethodnaSedmica
-    }
+    } 
 };
