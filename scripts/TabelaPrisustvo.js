@@ -234,53 +234,57 @@ export let TabelaPrisustvo = function (divRef, podaci) {
                 if(j==0) kolona.innerHTML= podaci.studenti[i].ime;
                 else if(j==1) kolona.innerHTML=podaci.studenti[i].index;
                 if(j>=2 && j==trenutna+1){
+                    spajaj=true;
                     let malaTabela = document.createElement("table");
                     malaTabela.className="mala-tabela";
                     malaTabela.id="t2";
                     let redMaleTabele1 = document.createElement("tr");
                     redMaleTabele1.className = "red-male-tabele";
                     for(let k=0; k<podaci.brojPredavanjaSedmicno; k++){
-                        let k = document.createElement("td");
+                        let kolona = document.createElement("td");
                         //Ovdje mi broj kad dodam ne može trebalo bi k+1
-                        k.innerHTML = "P<br>";
-                        redMaleTabele1.append(k);
+                        kolona.innerHTML = "P<br>" + (k+1);
+                        redMaleTabele1.append(kolona);
                     }
                     for(let k =0; k<podaci.brojVjezbiSedmicno; k++){
-                        let k = document.createElement("td");
-                        k.innerHTML = "V<br>";
-                        redMaleTabele1.append(k);
+                        let kolona = document.createElement("td");
+                        kolona.innerHTML = "V<br>" + (k+1);
+                        redMaleTabele1.append(kolona);
                     }
 
 
                     let redMaleTabele2 = document.createElement("tr");
                     redMaleTabele2.className = "red-male-tabele";
                  
-                    for(let k=0; k<podaci.prisustva.length; k++){
-                        if(podaci.prisustva[k].index==podaci.studenti[i].index &&
-                            podaci.prisustva[k].sedmica==j-1) {
-                                 //trebamo obojit tabelu nekako - treba posmatrat prisustva
-                                for(let t=0; t<podaci.prisustva.predavanja; t++){
-                                    let k = document.createElement("td");
-                                    k.className="zelena";
-                                    redMaleTabele2.append(k);
+                    for(let k=0; k<podaci.brojPredavanjaSedmicno; k++){
+                        
+                        let kolona = document.createElement("td");
+                        for(let t=0; t<podaci.prisustva.length; t++){
+                            if(podaci.prisustva[t].index==podaci.studenti[i].index &&
+                                podaci.prisustva[t].sedmica==j-1){
+                                    if(podaci.prisustva[t].predavanja>k) kolona.className="zelena";
+                                    else kolona.className="crvena";
                                 }
-                                for(let t=podaci.prisustva.predavanja; t<podaci.brojPredavanjaSedmicno; t++){
-                                    let k = document.createElement("td");
-                                    k.className="crvena";
-                                    redMaleTabele2.append(k);
-                                }
-                                for(let t=0; t<podaci.prisustva.vjezbe; t++){
-                                    let k = document.createElement("td");
-                                    k.className="zelena";
-                                    redMaleTabele2.append(k);
-                                }
-                                for(let t=podaci.prisustva.vjezbe; t<podaci.brojVjezbiSedmicno; t++){
-                                    let k = document.createElement("td");
-                                    k.className="crvena";
-                                    redMaleTabele2.append(k);
-                                }
-                             }
+                        }
+                        
+                        redMaleTabele2.append(kolona);
                     }
+
+
+                    for(let k=podaci.brojPredavanjaSedmicno; k<podaci.brojVjezbiSedmicno+podaci.brojPredavanjaSedmicno; k++){
+                        
+                        let kolona = document.createElement("td");
+                        for(let t=0; t<podaci.prisustva.length; t++){
+                            if(podaci.prisustva[t].index==podaci.studenti[i].index &&
+                                podaci.prisustva[t].sedmica==j-1){
+                                    if(podaci.prisustva[t].vjezbe+podaci.brojPredavanjaSedmicno>k) kolona.className="zelena";
+                                    else kolona.className="crvena";
+                                }
+                        }
+                        
+                        redMaleTabele2.append(kolona);
+                    }
+
 
                     malaTabela.append(redMaleTabele1);
                     malaTabela.append(redMaleTabele2);
@@ -301,10 +305,6 @@ export let TabelaPrisustvo = function (divRef, podaci) {
                     Red.appendChild(kolona);
                     break;
                 } */
-            }
-            if(j==trenutna+1) {
-                //treba iscrtavat ona crvena i zelena polja
-                spajaj = true;
             }
             Red.appendChild(kolona);
         }
