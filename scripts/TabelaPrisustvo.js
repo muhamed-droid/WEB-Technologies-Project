@@ -302,17 +302,20 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         trenutna--; 
     }
 
-    let dugmadi = document.getElementById("button");
+    let divZaDugmad = document.getElementById("button");
+
     let b1 = document.createElement("button");
-    let opa = document.createElement("i");
-    opa.className = "fa-solid fa-arrow-left";
-    b1.append(opa);
+    let strijela1 = document.createElement('i');
+    strijela1.className = "fa-solid fa-arrow-left";
+    b1.append(strijela1);
     b1.onclick = sljedecaSedmica();
-    dugmadi.append(b1);
+    divZaDugmad.append(b1);
     let b2 = document.createElement("Button");
-    b2.className = "fa-solid fa-arrow-right";
+    let strijela2 = document.createElement('i')
+    strijela2.className = "fa-solid fa-arrow-right";
+    b2.append(strijela2);
     b2.onclick = sljedecaSedmica();
-    dugmadi.append(b2);
+    divZaDugmad.append(b2);
 
     return {
         sljedecaSedmica: sljedecaSedmica,
