@@ -18,36 +18,6 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     }
 
     //Isti student ima dva ili više unosa prisustva za istu sedmicu
-
-    //Postoje dva ili više studenata sa istim indeksom u listi studenata
-  
-
-
-    //Postoji prisustvo za studenta koji nije u listi studenata
-
-
-    //Postoji sedmica, između dvije sedmice za koje je uneseno prisustvo bar jednom studentu,
-    //u kojoj nema unesenog prisustva. Npr. uneseno je prisustvo za sedmice 1 i 3 ali nijedan
-    //student nema prisustvo za sedmicu 2
-
-
-
-
-    //validacija podataka
-
-    //Broj prisustva na predavanju/vježbi je veći od broja predavanja/vježbi sedmično
-    //Broj prisustva je manji od nule
-    for(let i=0; i<podaci.prisustva.length; i++){
-        if(podaci.prisustva[i].predavanja>podaci.brojPredavanjaSedmicno
-          || podaci.prisustva[i].vjezbe>podaci.brojVjezbiSedmicno
-          || podaci.prisustva[i].predavanja<0 
-          || podaci.prisustva[i].vjezbe<0){
-            divRef.innerHTML="Podaci o prisustvu nisu validni!";
-            return;
-          } 
-    }
-
-    //Isti student ima dva ili više unosa prisustva za istu sedmicu
     let listaIndeksa = new Set();
     for(let i = 0; i<podaci.prisustva.length; i++){
         if(listaIndeksa.has(podaci.prisustva[i].index)) {
@@ -95,7 +65,11 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         }
     }
 
-
+    let zadnjaUnesena = 0;
+    for(let i = 0; i<sedmice.length; i++){
+        if(sedmice[i]>zadnjaUnesena) 
+            zadnjaUnesena = sedmice[i];
+    }
 
 
 
@@ -106,8 +80,6 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     let prvaKolona = document.createElement("td");
     prvaKolona.className = "prva-kolona";
     prvaKolona.innerHTML = "Ime i prezime";
-    //odnosno ostale kolone
-    let tekst;
     //trenutna sedmica je posljednja sa prisustvom
     let trenutna=1;
     for(let i = 0; i<podaci.prisustva.length; i++){
@@ -225,11 +197,10 @@ export let TabelaPrisustvo = function (divRef, podaci) {
         //studenti.set(podaci.studenti[i].ime, podaci.studenti[i].index);
         let Red = document.createElement("tr");
         spajaj=false;
-        for(let j = 0; j<17; j++){
+        for(let j = 0; j<zadnjaUnesena+2; j++){
             let kolona = document.createElement("td");
             if(spajaj==false && j!=trenutna+1) kolona.className= "tekst";
             else if(j==trenutna+1) kolona.className="tekuca";
-            else if(j!=16) kolona.className="span";
             if(spajaj==false){
                 if(j==0) kolona.innerHTML= podaci.studenti[i].ime;
                 else if(j==1) kolona.innerHTML=podaci.studenti[i].index;
@@ -289,9 +260,8 @@ export let TabelaPrisustvo = function (divRef, podaci) {
                     malaTabela.append(redMaleTabele1);
                     malaTabela.append(redMaleTabele2);
                     kolona.append(malaTabela);
-                }    
-            } else{
-                /*if(j>=2 && j!=trenutna+1){
+                }
+                else if(j>=2 && j!=trenutna+1){
                     let procenat = 0;
                     for(let k = 0; k <podaci.prisustva.length; k++){
                         if(podaci.prisustva[k].sedmica==j-2 && podaci.studenti[i].index==podaci.prisustva[k].index){
@@ -303,8 +273,9 @@ export let TabelaPrisustvo = function (divRef, podaci) {
                     }
                     kolona.innerHTML= procenat + "%";
                     Red.appendChild(kolona);
-                    break;
-                } */
+                }    
+            } else{
+                
             }
             Red.appendChild(kolona);
         }
