@@ -29,13 +29,13 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     }
 
     //Isti student ima dva ili više unosa prisustva za istu sedmicu
-    let listaIndeksa = new Set();
+    let listaIndeksa = new Map();
     for(let i = 0; i<podaci.prisustva.length; i++){
-        if(listaIndeksa.has(podaci.prisustva[i].index)) {
+        if(listaIndeksa.get(podaci.prisustva[i].index)==podaci.prisustva[i].index) {
             divRef.innerHTML="Podaci o prisustvu nisu validni!";
             return;
         }
-        listaIndeksa.add(podaci.prisustva[i].index);
+        listaIndeksa.set(podaci.prisustva[i].index, podaci.prisustva[i].sedmica);
     }
 
     //Postoje dva ili više studenata sa istim indeksom u listi studenata
