@@ -1,5 +1,14 @@
 export let TabelaPrisustvo = function (divRef, podaci) {
 
+    let prviPut = true;
+
+    let trenutna=1;
+    for(let i = 0; i<podaci.prisustva.length; i++){
+        if(podaci.prisustva.sedmica>trenutna) trenutna=podaci.prisustva.sedmica;
+    }
+
+
+
     divRef.innerHTML="";
 
     document.getElementById("h2").innerHTML=podaci.predmet;
@@ -65,7 +74,7 @@ export let TabelaPrisustvo = function (divRef, podaci) {
             divRef.innerHTML="Podaci o prisustvu nisu validni!";
             return;
         }
-    }
+    } 
 
     let zadnjaUnesena = 0;
     for(let i = 0; i<sedmice.length; i++){
@@ -83,10 +92,6 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     prvaKolona.className = "prva-kolona";
     prvaKolona.innerHTML = "Ime i prezime";
     //trenutna sedmica je posljednja sa prisustvom
-    let trenutna=1;
-    for(let i = 0; i<podaci.prisustva.length; i++){
-        if(podaci.prisustva.sedmica>trenutna) trenutna=podaci.prisustva.sedmica;
-    }
 
 
     let spajaj = false;
@@ -299,7 +304,7 @@ export let TabelaPrisustvo = function (divRef, podaci) {
 
     let prethodnaSedmica = function () {
         if(trenutna>1)
-        trenutna--; 
+        trenutna--;
     }
 
     let divZaDugmad = document.getElementById("button");
@@ -307,14 +312,15 @@ export let TabelaPrisustvo = function (divRef, podaci) {
     let b1 = document.createElement("button");
     let strijela1 = document.createElement('i');
     strijela1.className = "fa-solid fa-arrow-left";
+    b1.addEventListener("onclick", prethodnaSedmica());
     b1.append(strijela1);
-    b1.onclick = sljedecaSedmica();
     divZaDugmad.append(b1);
     let b2 = document.createElement("Button");
     let strijela2 = document.createElement('i')
     strijela2.className = "fa-solid fa-arrow-right";
+    b2.addEventListener("onclick", sljedecaSedmica());
     b2.append(strijela2);
-    b2.onclick = sljedecaSedmica();
+    if(b2.onclick) sljedecaSedmica();
     divZaDugmad.append(b2);
 
     return {
