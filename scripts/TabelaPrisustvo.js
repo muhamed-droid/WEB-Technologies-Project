@@ -1,6 +1,8 @@
 export let TabelaPrisustvo = function (divRef, podaci) {
-    
+
     divRef.innerHTML="";
+
+    document.getElementById("h2").innerHTML=podaci.predmet;
     if(podaci.length==0) return;
 
     //validacija podataka
@@ -287,14 +289,16 @@ export let TabelaPrisustvo = function (divRef, podaci) {
 
     divRef.appendChild(tabela);
 
+
+
     //implementacija metoda
     let sljedecaSedmica = function () {
-        if(trenutna==14) throw new console.error("Dosli ste do posljednje sedmice");
+        if(trenutna<14) 
         trenutna++;
     }
 
     let prethodnaSedmica = function () {
-        if(trenutna==1) throw new console.error("Na prvoj smo sedmici");
+        if(trenutna>1)
         trenutna--; 
     }
     //šta je fazon sa ovim jel ovo ne može ili 
