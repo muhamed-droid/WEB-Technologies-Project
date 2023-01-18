@@ -10,9 +10,9 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'public' , 'html' , 'predmet.html'));
- });
+app.use(express.static(__dirname + '/public/html'));
+
+
 
 
 
