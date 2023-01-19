@@ -3,6 +3,9 @@
 <head>  
 <meta name="viewport" content="width=device-width, initial-scale=1">  
 <!-- <link rel="stylesheet" href="/css/prijava.css"> -->
+<script type="module" src="../scripts/poziviAjax.js"></script>
+<script type="module" src="../scripts/prijava.js"></script>
+
 
 <style> 
     Body {  
@@ -54,15 +57,16 @@ button:hover {
 </head>    
 <body>    
     <h1 class="naslov"> Prijava </h1>   
-    <form>  
+    <form id="login-form" method="POST" action="/login">  
         <div class="container">   
             <label>Korisnicko ime : </label>   
-            <input type="text" placeholder="Unesite korisnicko ime" name="username" required>  
+            <input id = "username" type="text" placeholder="Unesite korisnicko ime" name="username" required>  
             <label>Lozinka : </label>   
-            <input type="password" placeholder="Unesite lozinku" name="password" required>  
-            <button type="submit">Prijavi se</button>     
+            <input id = "password" type="password" placeholder="Unesite lozinku" name="password" required>  
+            <button type="submit" class="submit-button" >Prijavi se</button>   
             <button type="button" class="cancelbtn"> Odustani</button>   
         </div>   
     </form>     
+    <script type="module" src="../../index.js"></script>
 </body>     
 </html>
