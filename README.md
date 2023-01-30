@@ -7,4 +7,4 @@ In the end this ended in a very big and useful project. Many things were used su
 
 ****************************************************************************
 
-It is not 100% perfect, but it is done somewhere around 80-90%. 
+It is not finished! 
